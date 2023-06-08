@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.secret_key = "Secret Key"
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:gsmysql@localhost/flaskapp'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:<your_password>@localhost/flaskapp'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///employee.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
