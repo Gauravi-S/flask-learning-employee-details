@@ -5,5 +5,5 @@
  * app.app_context().push()
  *  db.create_all()
  *  exit()
-3. flask run
+2. flask run
  
