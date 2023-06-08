@@ -1,13 +1,15 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 
+#initializing app
 app = Flask(__name__)
 app.secret_key = "Secret Key"
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:gsmysql@localhost/flaskapp'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:<your_password>@localhost/flaskapp'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///employee.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+#initialinzing db
 db = SQLAlchemy(app)
 
 
@@ -18,6 +20,7 @@ db = SQLAlchemy(app)
 #     """
 #     db.create_all()
 
+#Data Class/Model
 class Data(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
@@ -29,7 +32,7 @@ class Data(db.Model):
         self.email = email
         self.phone = phone
 
-
+#index page with all employee details
 @app.route('/')
 def Index():
     all_data = Data.query.all()
@@ -37,6 +40,7 @@ def Index():
     return render_template("index.html", employees=all_data)
 
 
+#add employee
 @app.route('/insert', methods=['POST'])
 def insert():
     if request.method == 'POST':
@@ -53,6 +57,7 @@ def insert():
         return redirect(url_for('Index'))
 
 
+#update employee
 @app.route('/update', methods=['GET', 'POST'])
 def update():
     if request.method == 'POST':
@@ -68,6 +73,7 @@ def update():
         return redirect(url_for('Index'))
 
 
+#delete employee
 @app.route('/delete/<id>/', methods=['GET', 'POST'])
 def delete(id):
     my_data = Data.query.get(id)
